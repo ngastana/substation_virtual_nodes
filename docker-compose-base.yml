@@ -50,7 +50,6 @@ services:
     networks:
       - sv_network
     privileged: true
-    #restart: unless-stopped
 
   smvgentime:
     build: ./smvgentime

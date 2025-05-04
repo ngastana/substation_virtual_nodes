@@ -5,7 +5,6 @@ import os
 import subprocess
 
 def parse_data_type_templates(root, namespaces):
-    #Extrae los DataTypeTemplates y los almacena en diccionarios
     data_type_templates = root.find('scl:DataTypeTemplates', namespaces)
     return {
         "lnode_types": {ln.get('id'): ln for ln in data_type_templates.findall('scl:LNodeType', namespaces)},
@@ -101,7 +100,6 @@ def process_all_scd_files(directory):
     for idx, file in enumerate(xml_files, start=1):
         print(f"{idx}. {os.path.basename(file)}")
 
-    # Se pide al usuario que elija el archivo a procesar
     try:
         choice = int(input("Seleccione el número del archivo a procesar: "))
         if choice < 1 or choice > len(xml_files):
