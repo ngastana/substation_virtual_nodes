@@ -39,24 +39,3 @@ all :
 #	@$(CC) $(SRC1) 
 
 .PHONY: activity-log dump-net both
-
-# 1) Volcar los logs de un servicio ya en marcha
-activity-log:
-	@echo "$(CYAN)📝 Iniciando volcado de logs de virtual-circuit-breaker en archivoactividad.log… $(RESET)"
-	@# -f para seguir en tiempo real
-	@docker logs -f virtual-circuit-breaker >> archivoactividad.log 2>&1 &
-
-# 2) Inyectar tcpdump en el contenedor ya en marcha
-dump-net:
-	@echo "$(CYAN)📝 Capturando IEC-104 en actividad.txt desde virtual-merging-unit…$(RESET)"
-	@docker run --rm \
-		--net container:virtual-merging-unit \
-		-v "$(PWD)":/output \
-		nicolaka/netshoot \
-		sh -c "tcpdump -i eth0 -nn -vvX port 102 > /output/actividad.txt & sleep 9999"
-
-# 3) Ambos a la vez
-both: activity-log dump-net
-	@echo "✅ Logs y dump de red en marcha."
-	@echo "   • archivoactividad.log"
-	@echo "   • pcap/actividad.txt"

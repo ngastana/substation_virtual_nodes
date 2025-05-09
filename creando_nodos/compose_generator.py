@@ -17,7 +17,7 @@ else:
 
 print("➜ JSON de nodos:", json_file)
 
-base_compose = os.path.join(os.getcwd(), 'docker-compose.yml')
+base_compose = os.path.join(os.getcwd(), 'docker-compose-base.yml')
 if not os.path.isfile(base_compose):
     print(f"Error: no existe {base_compose}")
     sys.exit(1)
@@ -79,8 +79,18 @@ for cls, num in counts.items():
                 deps.append(dep_name)
         if deps:
             cfg['depends_on'] = deps
-        
+
         dynamic_services[svc_key] = cfg
+
+output_file = os.path.join(os.getcwd(), 'docker-compose.yml')
+def remove_if_exists(path):
+    try:
+        os.remove(path)
+        print(f"* Eliminado existente: {path}")
+    except FileNotFoundError:
+        pass
+
+remove_if_exists(output_file)
 
 new_compose = {
     'version': base.get('version', '3.8'),
@@ -88,7 +98,6 @@ new_compose = {
     'networks': base_networks
 }
 
-with open(base_compose, 'w', encoding='utf-8') as f:
+with open(output_file, 'w', encoding='utf-8') as f:
     yaml.dump(new_compose, f, sort_keys=False, default_flow_style=False)
-
-print(f"✅ docker-compose.yml actualizado con {len(new_compose['services'])} servicios.")
+print(f"✅ {output_file} creado con {len(new_compose['services'])} servicios.")

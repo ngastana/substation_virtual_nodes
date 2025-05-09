@@ -23,14 +23,18 @@
 	<AccessPoint name="AP1">
 	<Server>
 		<LDevice inst="XCBR1">
-		<!-- Nodo Lógico General (LLN0) que utiliza el tipo definido en DataTypeTemplates -->
 		<LN0 lnClass="LLN0" lnType="LLN0Type" inst="" desc="Nodo lógico general">
-			<!-- Puedes incluir datos o atributos específicos para LN0 si lo requieres -->
 		</LN0>
-		<LN lnClass="XCBR" lnType="XCBRType" inst="" desc="BREaker">
-			<!-- Puedes incluir datos o atributos específicos para LN0 si lo requieres -->
+		<LN lnClass="XCBR" lnType="XCBRType" inst="" desc="BREaker">	
 		</LN>
-		<!-- Si es necesario, se pueden agregar otros LogicalNodes (LN) aquí -->
+		<!-- <LN lnClass="XCBR" lnType="XCBR_2" inst="1" prefix="Bkr0">
+		</LN>
+		<LN lnClass="XCBR" lnType="XCBR_2" inst="2" prefix="Bkr0">
+		</LN>
+		<LN lnClass="XCBR" lnType="XCBR_1" inst="1" prefix="Bkr1">
+		</LN> -->
+        <LN lnClass="MMXU" lnType="MMXU_0" inst="1" prefix="ACsrc">
+		</LN>
 		</LDevice>
 	</Server>
 	</AccessPoint>

@@ -23,6 +23,9 @@ fi
 
 
 image_name="virtual-prot-ied-"$(parse_git_branch)
+
+image_name="substation_virtual_nodes_virtual-ied"
+
 echo "Docker image to use ${image_name}"
 
 docker stop ${cont_name}
@@ -42,6 +45,8 @@ run_ied(){
 	docker network connect sv_network ${cont_name}
 	docker start -i ${cont_name}
 }
+
+docker run --privileged --rm -p 9102:102 -it --hostname virtual-prot-ied --network sv_network --name vied substation_virtual_nodes_virtual-ied
 
 if [ $1 -eq 0 ]; then
 	build_ied
